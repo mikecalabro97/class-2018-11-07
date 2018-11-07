@@ -50,12 +50,14 @@ x %>%
 file_list_A <- str_subset(file_list, "A")
 data <- map_dfr(file_list_A, read_csv, .id = "source")
 
-read_a_files <- function() {
-  file_list_A <- str_subset(file_list, "A")
-  new_table <- map_dfr(file_list_A, read_csv, .id = "source")
+read_a_files <- function(x) {
+  file_list <- dir_ls("data/")
+  file_list_A <- str_subset(file_list, x)
+  table <- map_dfr(file_list_A, read_csv, .id = "source")
+  table
 }
 
-read_a_files()
+read_a_files("A")
 
 # 8. Create a Shiny App which displays the histogram of b, allowing the user to
 # subset the display for specific values of c.
